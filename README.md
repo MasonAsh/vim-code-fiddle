@@ -6,11 +6,11 @@ Have you ever wanted to quickly test a small snippet of code without going throu
 # Usage
 Create a new code fiddle using the following command:
 ```
-:CodeFiddleNew <filename with extension>
+:CodeFiddle <filename with extension>
 ```
 Code fiddle will create a new file with some initial contents depending on the language.
 
-For example, `:CodeFiddleNew test.cpp` will create a file with the following contents:
+For example, `:CodeFiddle test.cpp` will create a file with the following contents:
 ```
 #include <iostream>
 
