@@ -29,6 +29,10 @@ if !isdirectory(codefiddle_outputdir)
     call mkdir(codefiddle_outputdir, "p")
 endif
 
+function! s:defineRunCommand()
+    execute "command! -buffer Run call codefiddle#runFiddle(expand('%'))"
+endfunction
+
 function! codefiddle#editFiddle(filename)
     let path = g:codefiddle_dir . a:filename
 
@@ -38,6 +42,8 @@ function! codefiddle#editFiddle(filename)
     endif
 
     execute "edit " . path
+    " Define the Run command for this buffer
+    call s:defineRunCommand()
 
     let extension = fnamemodify(a:filename, ":e")
 
@@ -99,9 +105,6 @@ function! codefiddle#runFiddle(filepath)
         endif
     endif
 endfunction
-
-" TODO: Make this command only available in code fiddle buffers
-command! CodeFiddleRun call codefiddle#runFiddle(expand('%'))
 
 if !exists('g:codefiddle_cpp_compiler')
     " TODO: more robust compiler detection?
