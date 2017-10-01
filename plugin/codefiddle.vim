@@ -95,12 +95,17 @@ function! codefiddle#runFiddle(filepath)
         let run_command = substitute(run_command, '%INPUT%', a:filepath, "")
         let run_command = substitute(run_command, '%OUTPUT%', target_output_path, "")
 
-        let compile_output = system(compile_command)
-        if v:shell_error
-            echo "Fiddle failed to compile: "
-            echo compile_output
+        if !empty(compile_command)
+            let compile_output = system(compile_command)
+            if v:shell_error
+                echo "Fiddle failed to compile: "
+                echo compile_output
+            else
+                echo compile_output
+                echo system(run_command)
+            endif
         else
-            echo compile_output
+            " Interpreted languages don't define a compile_command
             echo system(run_command)
         endif
     endif
@@ -119,5 +124,14 @@ if exists('g:codefiddle_cpp_compiler')
     call codefiddle#defineLanguage('cpp', ['cpp', 'cc', 'cxx'], g:codefiddle_cpp_compiler . ' %INPUT% -o %OUTPUT%', '%OUTPUT%', "#include <iostream>\n\nint main()\n{\n\n}")
 endif
 
+if !exists('g:codefiddle_python_executable')
+    if executable('python')
+        let g:codefiddle_python_executable = 'python'
+    endif
+endif
+
+if exists('g:codefiddle_python_executable')
+    call codefiddle#defineLanguage('python', ['py'], '', g:codefiddle_python_executable . ' %INPUT%', '')
+endif
 
 let g:loaded_codefiddle = 1
