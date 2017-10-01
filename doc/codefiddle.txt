@@ -18,7 +18,7 @@ USAGE                                                        *CodeFiddleUsage*
     This will put you in a new buffer with some initial contents depending on
     the file type.
 
-    Edit the file and when you're ready to run it, use the :Run command.
+    Edit the file and when you're ready to run it, use the |:Run| command.
 
 ==============================================================================
 COMMANDS                                                  *CodeFiddleCommands*
