@@ -1,0 +1,59 @@
+*codefiddle.txt* quickly run and test small pieces of code
+
+Author: Mason Ashbridge <masonjash@gmail.com>
+License: MIT 
+
+==============================================================================
+CONTENTS                                                  *CodeFiddleContents*
+
+    1. Usage ............. |CodeFiddleUsage|
+    2. Commands .......... |CodeFiddleCommands|
+    3. Functions ......... |CodeFiddleFunctions|
+
+==============================================================================
+USAGE                                                        *CodeFiddleUsage*
+
+    To create a new code fiddle, run the |:CodeFiddle| command.
+
+    This will put you in a new buffer with some initial contents depending on
+    the file type.
+
+    Edit the file and when you're ready to run it, use the :Run command.
+
+==============================================================================
+COMMANDS                                                  *CodeFiddleCommands*
+
+                                                                 *:CodeFiddle*
+:CodeFiddle [filename]      Create or open a code fiddle with filename [filename]
+                            The extension of [filename] is used to determine which
+                            language definition to use.
+
+                                                                        *:Run*
+:Run                        Used to run a code fiddle. If it is a compiled language
+                            and there were compilation errors, they will be
+                            displayed and the program will not run.
+
+                            NOTE: The file must have been opened with
+                            |:CodeFiddle| for this to work
+
+==============================================================================
+FUNCTIONS                                                *CodeFiddleFunctions*
+
+                                                   *codefiddle#defineLanguage*
+codefiddle#defineLanguage({name}, {associate_extensions}, {compile_command}, {run_command}, {initial_contents})
+    {name} is a simple string for the language, i.e. 'c'
+
+    {compile_command} is a string that represents the shell command used to
+                      compile the code. %INPUT% will be replaced with the
+                      code fiddle's file path, %OUTPUT% will be replaced
+                      with the desired output file.
+
+                      For example:
+                      'gcc %INPUT% -o %OUTPUT%'
+
+    {run_command} is the shell command used to run the program. It will
+                  have the same replacement strings as {compile_command}
+
+    {initial_contents} is a string with the initial file contents when 
+                       creating a new code fiddle.
+
