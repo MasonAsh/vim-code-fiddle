@@ -23,7 +23,7 @@ int main()
 From there you can go ahead and edit the code, and when you're ready to run it, use the following command:
 
 ```
-:CodeFiddleRun
+:Run
 ```
 
 This will compile the code, and if compilation succeeded, will run the program.
