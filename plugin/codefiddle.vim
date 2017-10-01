@@ -111,6 +111,19 @@ function! codefiddle#runFiddle(filepath)
     endif
 endfunction
 
+if !exists('g:codefiddle_c_compiler')
+    " TODO: more robust compiler detection?
+    if executable('gcc')
+        let g:codefiddle_c_compiler = 'gcc'
+    elseif executable('clang')
+        let g:codefiddle_c_compiler = 'clang'
+    endif
+endif
+
+if exists('g:codefiddle_c_compiler')
+    call codefiddle#defineLanguage('c', ['c'], g:codefiddle_c_compiler . ' %INPUT% -o %OUTPUT%', '%OUTPUT%', "#include <stdio.h>\n\nint main()\n{\n\n}")
+endif
+
 if !exists('g:codefiddle_cpp_compiler')
     " TODO: more robust compiler detection?
     if executable('g++')
