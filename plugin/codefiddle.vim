@@ -147,4 +147,14 @@ if exists('g:codefiddle_python_executable')
     call codefiddle#defineLanguage('python', ['py'], '', g:codefiddle_python_executable . ' %INPUT%', '')
 endif
 
+if !exists('g:codefiddle_rust_compiler')
+    if executable('rustc')
+        let g:codefiddle_rust_compiler = 'rustc'
+    endif
+endif
+
+if exists('g:codefiddle_rust_compiler')
+    call codefiddle#defineLanguage('rust', ['rs'], g:codefiddle_rust_compiler . ' %INPUT% -o %OUTPUT%', '%OUTPUT%', "fn main() {\n\n}")
+endif
+
 let g:loaded_codefiddle = 1
